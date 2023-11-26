@@ -72,7 +72,9 @@ docker run -d -p 5000:5000 --restart always --name reg registry:2
 ```
 
 Для просмотра выделенных ресурсов выполняем команду
+```sh
 docker stats
+```
 
 Получим вот такую табличку со значениями в реальном времени
 |CONTAINER ID  | NAME      |  CPU %  |   MEM USAGE / LIMIT    | MEM %   |  NET I/O         | BLOCK I/O    | PIDS|
