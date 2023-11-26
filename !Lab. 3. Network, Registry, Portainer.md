@@ -16,10 +16,10 @@ docker network ls
 ```sh
 docker network create my-net
 ```
-Повторив первую команду в таблице видны изменения, а именно добавлена новая сеть 'my-net'
+Повторив первую команду в таблице видны изменения, а именно добавлена новая сеть `my-net`
 |NETWORK ID|     NAME|      DRIVER |   SCOPE|
 |------------|---------|---------|--------|
 |f104040273bd |  bridge  |  bridge  |  local|
 |4fef8e669d8b |  host    |  host    |  local|
-|'bd86af5b9fc1' |  'my-net'  |  'bridge'  |  'local'|
+|`bd86af5b9fc1`| `my-net`  | `bridge`  |`local`|
 |f0bf62022d52 |  none    |  null    |  local|
