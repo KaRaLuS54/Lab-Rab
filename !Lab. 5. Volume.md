@@ -1,6 +1,7 @@
 # Лабораторная работа №5
 # Volume
 
+## Создание Volume
 С начала удаляю неиспользуемые Volume
 ```sh
 docker volume prune -f
@@ -61,5 +62,33 @@ docker container inspect mongo_test
                 "Propagation": ""
             }
         ],
-
 ```
+
+## Монтирование
+С начала удаляем неиспользоемые Volume
+```sh
+docker volume prune -f
+```
+
+После останавливаем контейнер
+```sh
+docker container stop mongo_test
+```
+
+После остановки контейнера мы можем его удалить
+```sh
+docker container rm mongo_test
+```
+Теперь создаем новые Volume
+```sh
+docker volume create storage
+docker volume create config
+```
+
+Теперь запустим контейнер прогоняя нужный порт
+```sh
+docker container run -d -v storage:/data/db -v config:/data/configdb -p 27018:27017 --name mongo_test mongo
+```
+
+
+
