@@ -35,4 +35,31 @@ local     c3753b1662116ebdca725b6ab3239604bcea9118bd7f9e61dcad6436962a933a
 local     db
 local     storage
 ```
+Проинспектируем 
+```sh
+docker container inspect mongo_test
+#Получим вот такой результат
+"Mounts": [
+            {
+                "Type": "volume",
+                "Name": "storage",
+                "Source": "/var/lib/docker/volumes/storage/_data",
+                "Destination": "/data/db",
+                "Driver": "local",
+                "Mode": "z",
+                "RW": true,
+                "Propagation": ""
+            },
+            {
+                "Type": "volume",
+                "Name": "b2583176fe3de253d700190ec757992b0cb1d49ee18f670ae68337e5d3ca0dee",
+                "Source": "/var/lib/docker/volumes/b2583176fe3de253d700190ec757992b0cb1d49ee18f670ae68337e5d3ca0dee/_data",
+                "Destination": "/data/configdb",
+                "Driver": "local",
+                "Mode": "",
+                "RW": true,
+                "Propagation": ""
+            }
+        ],
 
+```
