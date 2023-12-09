@@ -20,3 +20,19 @@ local     c3753b1662116ebdca725b6ab3239604bcea9118bd7f9e61dcad6436962a933a
 local     db
 local     storage
 ```
+
+Запускаем контейнер mongo с помощью команды
+```sh
+docker container run -d -v storage:/data/db --name mongo_test mongo
+```
+После повторного выполнения команды просмотра Volume, у нас появится новый
+```sh
+root@pcmacvirtualka:~# docker volume ls
+DRIVER    VOLUME NAME
+local     27b8b139eafe0e2723211e8ca60048d52e0f3b0b3d79ac913035d87c1e46d49e
+`local     b2583176fe3de253d700190ec757992b0cb1d49ee18f670ae68337e5d3ca0dee`
+local     c3753b1662116ebdca725b6ab3239604bcea9118bd7f9e61dcad6436962a933a
+local     db
+local     storage
+```
+
