@@ -90,5 +90,29 @@ docker volume create config
 docker container run -d -v storage:/data/db -v config:/data/configdb -p 27018:27017 --name mongo_test mongo
 ```
 
+```sh
+"Mounts": [
+            {
+                "Type": "volume",
+                "Name": "config",
+                "Source": "/var/lib/docker/volumes/config/_data",
+                "Destination": "/data/configdb",
+                "Driver": "local",
+                "Mode": "z",
+                "RW": true,
+                "Propagation": ""
+            },
+            {
+                "Type": "volume",
+                "Name": "storage",
+                "Source": "/var/lib/docker/volumes/storage/_data",
+                "Destination": "/data/db",
+                "Driver": "local",
+                "Mode": "z",
+                "RW": true,
+                "Propagation": ""
+            }
+        ],
+```
 
 
