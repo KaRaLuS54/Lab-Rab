@@ -114,5 +114,12 @@ docker container run -d -v storage:/data/db -v config:/data/configdb -p 27018:27
             }
         ],
 ```
-
-
+##Примонтируем volume к другому контейнеру
+Как и в прошлые разы удаляем неиспользуемые Volume
+```sh
+docker volume prune -f
+#Останавливаем
+docker container stop mongo_test
+#Удаляем
+docker container rm mongo_test
+```
