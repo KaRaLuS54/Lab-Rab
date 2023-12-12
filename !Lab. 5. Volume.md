@@ -264,15 +264,34 @@ docker container run -d \
 ```
 Скорее всего из-за того, что в прошлом методе мы не удаляли контейнер webhost, нам выдавало ошибку.
 ## Создание tmpfs, типа Volume
-Удаляем контейнер webhost
+Удаляем контейнер webhost и неиспользуемые Volume
 ```sh
 docker container rm -f webhost
 ```
 Создаем tmpfs
 ```sh
-
+root@pcmacvirtualka:~# docker run -d \
+> -it \
+> --name webhost \
+> --mount type=tmpfs,destination=/app,tmpfs-size=100m \
+> nginx:alpine
+#получаем результат:
+a510ba52eb67c071fe58f46e2e9b62803abd599cc53dba5f14e01e09266e73d8
 ```
 
+Теперь пытаемся собрать образ 
+```sh
+docker build . -t example_volume_dockerfile
+```
+Получаем вот такой результат:
+```sh
+[+] Building 0.2s (2/2) FINISHED                                                                                                      docker:default
+ => [internal] load .dockerignore                                                                                                               0.1s
+ => => transferring context: 2B                                                                                                                 0.0s
+ => [internal] load build definition from Dockerfile                                                                                            0.1s
+ => => transferring dockerfile: 2B                                                                                                              0.0s
+ERROR: failed to solve: failed to read dockerfile: open /var/lib/docker/tmp/buildkit-mount1165776999/Dockerfile: no such file or directory
+```
 
 
 
