@@ -114,7 +114,7 @@ docker container run -d -v storage:/data/db -v config:/data/configdb -p 27018:27
             }
         ],
 ```
-##Примонтируем volume к другому контейнеру
+## Примонтируем volume к другому контейнеру
 Как и в прошлые разы удаляем неиспользуемые Volume
 ```sh
 docker volume prune -f
@@ -127,8 +127,36 @@ docker container run -d -v storage:/data/db -v config:/data/configdb -p 27019:27
 ```sh
 docker container ps
 ```
+Получим вот такие данные. Контейнер не будет запущен так как Volume уже используется. При остановке уже запущенного ранее контейнера, созданный контейнер запустится.
+
 |CONTAINER ID|IMAGE|COMMAND|CREATED|STATUS|PORTS|NAMES|
 |------------|-----|-------|-------|------|-----|------|
-639510d41209|mongo |"docker-entrypoint.s\u2026"|16 minutes ago|Up 16 minutes|0.0.0.0:27018->27017/tcp,|:::27018->27017/tcp|mongo_test|
-ab3b05f11dbb|hyper/docker-registry-web|"start.sh"|3 days ago|Restarting (1) 12 seconds ago| |reg-web|
-f901ebaf025a |registry:2 |"/entrypoint.sh /etc\u2026"|3 days ago|Up 33 minutes|0.0.0.0:5000->5000/tcp,|:::5000->5000/tcp|reg|
+|639510d41209|mongo |"docker-entrypoint.s\u2026"|16 minutes ago|Up 16 minutes|0.0.0.0:27018->27017/tcp,|:::27018->27017/tcp|mongo_test|
+|ab3b05f11dbb|hyper/docker-registry-web|"start.sh"|3 days ago|Restarting (1) 12 seconds ago| |reg-web|
+|f901ebaf025a |registry:2 |"/entrypoint.sh /etc\u2026"|3 days ago|Up 33 minutes|0.0.0.0:5000->5000/tcp,|:::5000->5000/tcp|reg|
+
+## Установка label
+Как и в прошлые разы удаляем неиспользуемые Volume
+```sh
+docker volume prune -f
+```
+Создаем Volume
+```sh
+docker volume create --name storage --label maintainer='Ivanov I.I.' --label used_for='mongo db storage'
+```
+
+После получим вот такой результат
+```sh
+root@pcmacvirtualka:~# docker volume inspect storage
+[
+    {
+        "CreatedAt": "2023-12-09T09:28:37+03:00",
+        "Driver": "local",
+        "Labels": null,
+        "Mountpoint": "/var/lib/docker/volumes/storage/_data",
+        "Name": "storage",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+```
