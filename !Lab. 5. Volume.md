@@ -211,12 +211,12 @@ docker volume create --driver local \
 docker container run -d -v storage:/data/db --name mongo mongo
 ```
 
-## Примонтирование volume, при помощи команды --mount.
+## Примонтирование volume, при помощи команды --mount
 Удаляем неиспользуемые Volume, после загружем новый образ для nginx:alpine с помощью команды:
 ```sh
 docker container run -d --mount source=storage,target=/usr/share/nginx/html --name webhost nginx:alpine
 ```
-Получим вот такой результат
+Получили вот такой результат
 ```sh
 Unable to find image 'nginx:alpine' locally
 
@@ -233,6 +233,48 @@ Digest: sha256:3923f8de8d2214b9490e68fd6ae63ea604deddd166df2755b788bef04848b9bc
 Status: Downloaded newer image for nginx:alpine
 867ea42afeb35b10cbb261f245a608b1f42e18a734558bacd9f0647c17fd5650
 ```
+## Монтирование каталога файловой системы хоста в режиме только для чтения
+После создания html файла, выполнил команду:
+```sh
+root@pcmacvirtualka:~# docker container run -d \
+> --mount type=bind, source="$(pwd)"/html,target=/usr/share/nginx/html,readonly \
+> --publish 80:80 \
+> --name webhost nginx:alpine
+```
+После получил ошибку:
+```sh
+invalid argument "type=bind," for "--mount" flag: invalid field '' must be a key=value pair
+See 'docker container run --help'.
+```
+
+## Пример монтирования нескольки файлов
+Удаляем контейнер webhost
+```sh
+docker container rm -f webhost
+```
+После удаляем неиспользуемые Volume. Далее делаем монтирование для нескольких файлов:
+```sh
+docker container run -d \
+    --mount type=bind,source="$(pwd)"/index.html,target=/usr/share/nginx/html/index.html \
+    --mount type=bind,source="$(pwd)"/about.html,target=/usr/share/nginx/html/about.html \
+    --publish 80:80 \
+    --name webhost nginx:alpine
+#получаем результат:
+1a443e0dde1d1f4486068bc731b7376ea975e441ccefc5e50dca443e6a5a6a87
+```
+Скорее всего из-за того, что в прошлом методе мы не удаляли контейнер webhost, нам выдавало ошибку.
+## Создание tmpfs, типа Volume
+Удаляем контейнер webhost
+```sh
+docker container rm -f webhost
+```
+Создаем tmpfs
+```sh
+
+```
+
+
+
 
 
 
