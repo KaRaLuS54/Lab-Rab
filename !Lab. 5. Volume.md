@@ -163,3 +163,78 @@ root@pcmacvirtualka:~# docker volume inspect storage
 
 ## Манипулирование данными
 Из прошлого задания можно заметить, что у нас после инспектирования storage выводится результат с строчкой `"Mountpoint": "/var/lib/docker/volumes/storage/_data"`, далее нам требуется скопировать данные во внутрь Volume. Для этого используем следующую команду
+```sh
+cp index.html /var/lib/docker/volumes/storage/_data
+
+#получим вот такой результат
+cp: не удалось выполнить stat для 'index.html': Нет такого файла или каталога
+```
+
+Для просмотра содержимого каталога используем следующую команду:
+```sh
+sudo ls -l /var/lib/docker/volumes/storage/_data
+
+#Получим результат
+Итого 276
+-rw------- 1 999 docker 20480 \u0434\u0435\u043a 12 11:45 collection-0-8345376612828870226.wt
+-rw------- 1 999 docker 36864 \u0434\u0435\u043a 12 11:45 collection-2-8345376612828870226.wt
+-rw------- 1 999 docker  4096 \u0434\u0435\u043a  9 09:43 collection-4-8345376612828870226.wt
+drwx------ 2 999 docker  4096 \u0434\u0435\u043a 12 11:45 diagnostic.data
+-rw------- 1 999 docker 20480 \u0434\u0435\u043a 12 11:45 index-1-8345376612828870226.wt
+-rw------- 1 999 docker 36864 \u0434\u0435\u043a 12 11:45 index-3-8345376612828870226.wt
+-rw------- 1 999 docker  4096 \u0434\u0435\u043a  9 09:43 index-5-8345376612828870226.wt
+-rw------- 1 999 docker  4096 \u0434\u0435\u043a 12 11:45 index-6-8345376612828870226.wt
+drwx------ 2 999 docker  4096 \u0434\u0435\u043a 12 11:10 journal
+-rw------- 1 999 docker 20480 \u0434\u0435\u043a 12 11:45 _mdb_catalog.wt
+-rw------- 1 999 docker     0 \u0434\u0435\u043a 12 11:45 mongod.lock
+-rw------- 1 999 docker 36864 \u0434\u0435\u043a 12 11:45 sizeStorer.wt
+-rw------- 1 999 docker   114 \u0434\u0435\u043a  9 09:32 storage.bson
+-rw------- 1 999 docker    50 \u0434\u0435\u043a  9 09:32 WiredTiger
+-rw------- 1 999 docker  4096 \u0434\u0435\u043a 12 11:45 WiredTigerHS.wt
+-rw------- 1 999 docker    21 \u0434\u0435\u043a  9 09:32 WiredTiger.lock
+-rw------- 1 999 docker  1469 \u0434\u0435\u043a 12 11:45 WiredTiger.turtle
+-rw------- 1 999 docker 69632 \u0434\u0435\u043a 12 11:45 WiredTiger.wt
+```
+
+## Создание Volume с опциями
+После удаления несипользуемых Volume создаем новые
+```sh
+docker volume create --driver local \
+    --opt type=tmpfs \
+    --opt device=tmpfs \
+    --opt o=size=100m \
+    storage
+```
+
+После запускаем контейнер
+```sh
+docker container run -d -v storage:/data/db --name mongo mongo
+```
+
+## Примонтирование volume, при помощи команды --mount.
+Удаляем неиспользуемые Volume, после загружем новый образ для nginx:alpine с помощью команды:
+```sh
+docker container run -d --mount source=storage,target=/usr/share/nginx/html --name webhost nginx:alpine
+```
+Получим вот такой результат
+```sh
+Unable to find image 'nginx:alpine' locally
+
+alpine: Pulling from library/nginx
+2c03dbb20264: Already exists 
+9250f75ee527: Pull complete 
+29521ceb8583: Pull complete 
+c14709558ecd: Pull complete 
+58a34759c9b7: Pull complete 
+480fb4b12f42: Pull complete 
+379d33e27177: Pull complete 
+2a615eae1986: Pull complete 
+Digest: sha256:3923f8de8d2214b9490e68fd6ae63ea604deddd166df2755b788bef04848b9bc
+Status: Downloaded newer image for nginx:alpine
+867ea42afeb35b10cbb261f245a608b1f42e18a734558bacd9f0647c17fd5650
+```
+
+
+
+
+
