@@ -118,8 +118,17 @@ docker container run -d -v storage:/data/db -v config:/data/configdb -p 27018:27
 Как и в прошлые разы удаляем неиспользуемые Volume
 ```sh
 docker volume prune -f
-#Останавливаем
-docker container stop mongo_test
-#Удаляем
-docker container rm mongo_test
 ```
+Далее запускаем вторю mongo
+```sh
+docker container run -d -v storage:/data/db -v config:/data/configdb -p 27019:27017 --name mongo_test1 mongo
+```
+Просмотрим запущенные контейнеры
+```sh
+docker container ps
+```
+|CONTAINER ID|IMAGE|COMMAND|CREATED|STATUS|PORTS|NAMES|
+|------------|-----|-------|-------|------|-----|------|
+639510d41209|mongo |"docker-entrypoint.s\u2026"|16 minutes ago|Up 16 minutes|0.0.0.0:27018->27017/tcp,|:::27018->27017/tcp|mongo_test|
+ab3b05f11dbb|hyper/docker-registry-web|"start.sh"|3 days ago|Restarting (1) 12 seconds ago| |reg-web|
+f901ebaf025a |registry:2 |"/entrypoint.sh /etc\u2026"|3 days ago|Up 33 minutes|0.0.0.0:5000->5000/tcp,|:::5000->5000/tcp|reg|
