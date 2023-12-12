@@ -89,7 +89,7 @@ docker volume create config
 ```sh
 docker container run -d -v storage:/data/db -v config:/data/configdb -p 27018:27017 --name mongo_test mongo
 ```
-
+Проинспектируем и увидим изменения
 ```sh
 "Mounts": [
             {
