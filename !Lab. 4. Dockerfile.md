@@ -210,8 +210,12 @@ root@pcmacvirtualka:~/nginx-image# docker ps
 |ab3b05f11dbb  | hyper/docker-registry-web |"start.sh" |5 days ago |Restarting (1) 55 seconds ago  | |                                    reg-web|
 |f901ebaf025a |  registry:2  | "/entrypoint.sh /etc\u2026" |5 days ago | Up About an hour|0.0.0.0:5000->5000/tcp, :::5000->5000/tcp | reg|
 
-
-
+Чтобы убедиться, что служба PHP-FPM работает, создадим файл info.php в каталоге /webroot. 
+```sh
+echo '<?php phpinfo(); ?>' > /webroot/info.php
+```
+Далее заходим по адресу http://ip-адрес_хост-машины:8080/info.php и видим файл настроек PHP
+![Image alt](https://github.com/KaRaLuS54/picturesKaralus/blob/main/DockerPHP.png)
 
 
 
