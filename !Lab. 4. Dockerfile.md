@@ -164,13 +164,51 @@ root@pcmacvirtualka:~/nginx-image# tree .
 
 0 directories, 4 files
 root@pcmacvirtualka:~/nginx-image#
-
 ```
 
+Теперь соберем наж образ. Прописываем команду:
+
+```sh
+root@pcmacvirtualka:~/nginx-image# docker build -t nginx-image .
+```
+
+Образ создан, увидеть мы его сможем таким образом:
+```sh
+root@pcmacvirtualka:~/nginx-image# docker image ls
+```
+|REPOSITORY |                 TAG     |  IMAGE ID    |   CREATED    |     SIZE|
+|-----------|-------------------------|--------------|--------------|----------|
+|`nginx-image`                | `latest`  |  `5d145621cf2f`  | `2 minutes ago`  | `237MB`|
+|start.sh                   | latest    |5d145621cf2f  | 2 minutes ago  | 237MB|
+|mongo                       |latest   | df419f3480d4  | 12 days ago     |721MB|
+|ubuntu                      |latest    |031631b93326  | 13 days ago     |69.3MB|
+|registry                    |2         |e56655e0dde9  | 13 days ago     |24.9MB|
+|nginx                       |alpine    |f09fc93534f6  | 13 days ago     |43.4MB|
+|localhost:5000/nginx        |v1        |5628e5ea3c17  | 3 weeks ago     |192MB|
+|nginx                       |latest    |5628e5ea3c17  | 3 weeks ago     |192MB|
+|hello-world                 |latest    |b038788ddb22  | 7 months ago    |9.14kB|
+|hyper/docker-registry-web   |latest    |0db5683824d8  | 7 years ago     |599MB|
+|docker/whalesay             |latest    |6b362a9f73eb  | 8 years ago     |247MB|
 
 
+Далее создаем новый каталог
+```sh
+mkdir -p /webroot
+```
+Создаем новый контейнер 
+```sh
+docker run -d -v /webroot:/var/www/html -p 8080:80 --name test-container nginx-image
+```
 
-
+Просматриваем контейнеры
+```sh
+root@pcmacvirtualka:~/nginx-image# docker ps
+```
+|CONTAINER ID  | IMAGE         |        COMMAND         |         CREATED      |    STATUS               |           PORTS    |NAMES |
+|------------|--------------------|--------------------|----------------------|-------------------------|----------------------|------|
+|`4b51449f97f9 `| ` nginx-image `  | ` "./start.sh"`  | `11 seconds ago` |`Up 10 seconds  ` |  `443/tcp, 0.0.0.0:8080->80/tcp, :::8080->80/tcp `|`test-container`|
+|ab3b05f11dbb  | hyper/docker-registry-web |"start.sh" |5 days ago |Restarting (1) 55 seconds ago  | |                                    reg-web|
+|f901ebaf025a |  registry:2  | "/entrypoint.sh /etc\u2026" |5 days ago | Up About an hour|0.0.0.0:5000->5000/tcp, :::5000->5000/tcp | reg|
 
 
 
