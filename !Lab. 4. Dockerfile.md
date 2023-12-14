@@ -156,11 +156,12 @@ chmod +x start.sh
 Прописав команду 'tree .' мы можем увидеть конфигурацию нашего пользовательского образа
 ```sh
 root@pcmacvirtualka:~/nginx-image# tree .
-|
-| ________default
-| ________Dockerfile
-| ________start.sh
-| ________supervisord.conf
+.
+|_________ default
+|_________ Dockerfile
+|_________ start.sh
+|_________ supervisord.conf
+
 
 0 directories, 4 files
 root@pcmacvirtualka:~/nginx-image#
