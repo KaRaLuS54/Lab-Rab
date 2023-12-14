@@ -26,7 +26,7 @@ LABEL maintainer="admin@admin812.ru"
 LABEL version="0.1"
 LABEL description="Это пользовательский образ Docker для служб
 PHP-FPM и Nginx."
-#в файле докера все Label прописывал на английском
+#в файле докера Label прописывал на английском
 
 # предотвратим интерактивные запросы при запуске команды apt
 ARG DEBIAN_FRONTEND=noninteractive
