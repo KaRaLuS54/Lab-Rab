@@ -65,5 +65,115 @@ COPY start.sh /start.sh
 CMD ["./start.sh"]
 
 # открываем порт для приложения 
-EXPOSE 80 443```
+EXPOSE 80 443
+```
+
+Создаем новую конфигурацию виртуального хоста nginx
+```sh
+nano default
+```
+
+Закинем в файл такие настройки:
+```sh
+server {
+    listen 80 default_server;
+ 
+    root /var/www/html;
+    index index.html index.htm index.nginx-debian.html;
+ 
+    server_name _;
+ 
+    location / {
+        try_files $uri $uri/ =404;
+    }
+ 
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/run/php/php7.4-fpm.sock;
+    }
+}
+
+```
+
+Теперь можем создать конфигурацию ‘supervisrod.conf’, которая будет содержать некоторые параметры  Nginx и PHP-FPM
+```sh
+nano supervisord.conf
+```
+В файл закидываем следующее
+```sh
+[unix_http_server]
+file=/dev/shm/supervisor.sock   ; (the path to the socket file)
+ 
+[supervisord]
+logfile=/var/log/supervisord.log ; (main log file;default $CWD/supervisord.log)
+logfile_maxbytes=50MB        ; (max main logfile bytes b4 rotation;default 50MB)
+logfile_backups=10           ; (num of main logfile rotation backups;default 10)
+loglevel=info                ; (log level;default info; others: debug,warn,trace)
+pidfile=/tmp/supervisord.pid ; (supervisord pidfile;default supervisord.pid)
+nodaemon=false               ; (start in foreground if true;default false)
+minfds=1024                  ; (min. avail startup file descriptors;default 1024)
+minprocs=200                 ; (min. avail process descriptors;default 200)
+user=root             ;
+
+[rpcinterface:supervisor]
+supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
+ 
+[supervisorctl]
+serverurl=unix:///dev/shm/supervisor.sock ; use a unix:// URL  for a unix socket
+ 
+[include]
+files = /etc/supervisor/conf.d/*.conf
+ 
+[program:php-fpm7.4]
+command=/usr/sbin/php-fpm7.4 -F
+numprocs=1
+autostart=true
+autorestart=true
+ 
+[program:nginx]
+command=/usr/sbin/nginx
+numprocs=1
+autostart=true
+autorestart=true
+```
+Теперь можем создать последний скрипт ‘start.sh’, он будет содержать команду supervisord для запуска
+```sh
+nano start.sh
+```
+
+Скрипт выглядит следующим образом
+```sh
+#!/bin/sh
+/usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
+```
+
+Теперь надо выдать права нашему скрипту с помощью команды
+
+```sh
+chmod +x start.sh
+```
+
+Прописав команду 'tree .' мы можем увидеть конфигурацию нашего пользовательского образа
+```sh
+root@pcmacvirtualka:~/nginx-image# tree .
+|
+| ________default
+| ________Dockerfile
+| ________start.sh
+| ________supervisord.conf
+
+0 directories, 4 files
+root@pcmacvirtualka:~/nginx-image#
+
+```
+
+
+
+
+
+
+
+
+
+
 
