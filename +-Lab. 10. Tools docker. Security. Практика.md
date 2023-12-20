@@ -1,5 +1,5 @@
 # Лабораторная работа №10
-# Tools docker, Security, Практика 
+# Tools docker, Security
 
 
 ## Использование HADOLINT для анализа Dockerfile
