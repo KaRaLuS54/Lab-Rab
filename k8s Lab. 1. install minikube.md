@@ -37,17 +37,35 @@ vladimir@vladimir-VirtualBox:~$ minikube start --vm-driver=VirtualBox
 ```
 Zapusk
 ```sh
-minikube start --driver=docker
+minikube start --driver=VirtualBox
 ```
 
 ```sh
-vladimir@vladimir-VirtualBox:~$ minikube start --driver=docker
+vladimir@vladimir-VirtualBox:~$ minikube start --driver=virtualbox
 😄  minikube v1.32.0 на Ubuntu 22.04
-✨  Используется драйвер docker на основе конфига пользователя
+✨  Используется драйвер virtualbox на основе конфига пользователя
 
-💣  Exiting due to PROVIDER_DOCKER_NEWGRP: "docker version --format <no value>-<no value>:<no value>" exit status 1: permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get "http://%2Fvar%2Frun%2Fdocker.sock/v1.24/version": dial unix /var/run/docker.sock: connect: permission denied
-💡  Предложение: Add your user to the 'docker' group: 'sudo usermod -aG docker $USER && newgrp docker'
-📘  Documentation: https://docs.docker.com/engine/install/linux-postinstall/
+🧯  The requested memory allocation of 1959MiB does not leave room for system overhead (total system memory: 1959MiB). You may face stability issues.
+💡  Предложение: Start minikube with less memory allocated: 'minikube start --memory=1959mb'
+
+💿  Downloading VM boot image ...
+    > minikube-v1.32.1-amd64.iso....:  65 B / 65 B [---------] 100.00% ? p/s 0s
+    > minikube-v1.32.1-amd64.iso:  292.96 MiB / 292.96 MiB  100.00% 29.91 MiB p
+👍  Запускается control plane узел minikube в кластере minikube
+💾  Скачивается Kubernetes v1.28.3 ...
+    > preloaded-images-k8s-v18-v1...:  403.35 MiB / 403.35 MiB  100.00% 28.28 M
+🔥  Creating virtualbox VM (CPUs=2, Memory=1959MB, Disk=20000MB) ...
+🤦  StartHost failed, but will try again: creating host: create: precreate: This computer doesn't have VT-X/AMD-v enabled. Enabling it in the BIOS is mandatory
+🔥  Creating virtualbox VM (CPUs=2, Memory=1959MB, Disk=20000MB) ...
+😿  Failed to start virtualbox VM. Running "minikube delete" may fix it: creating host: create: precreate: This computer doesn't have VT-X/AMD-v enabled. Enabling it in the BIOS is mandatory
+
+❌  Exiting due to HOST_VIRT_UNAVAILABLE: Failed to start host: creating host: create: precreate: This computer doesn't have VT-X/AMD-v enabled. Enabling it in the BIOS is mandatory
+💡  Предложение: Virtualization support is disabled on your computer. If you are running minikube within a VM, try '--driver=docker'. Otherwise, consult your systems BIOS manual for how to enable virtualization.
+🍿  Related issues:
+    ▪ https://github.com/kubernetes/minikube/issues/3900
+    ▪ https://github.com/kubernetes/minikube/issues/4730
+
+
 ```
 
 
