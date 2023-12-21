@@ -64,9 +64,20 @@ vladimir@vladimir-VirtualBox:~$ minikube start --driver=virtualbox
 🍿  Related issues:
     ▪ https://github.com/kubernetes/minikube/issues/3900
     ▪ https://github.com/kubernetes/minikube/issues/4730
-
-
 ```
+
+status
+```sh
+vladimir@vladimir-VirtualBox:~$ minikube status
+E1221 11:06:27.128184   15661 status.go:263] The "minikube" host does not exist!
+minikube
+type: Control Plane
+host: Nonexistent
+kubelet: Nonexistent
+apiserver: Nonexistent
+kubeconfig: Nonexistent
+```
+
 
 
 
