@@ -10,4 +10,22 @@ sudo apt-get update
 sudo apt-get install -y kubectl
 ```
 
+Второй способ установки через прямую ссылку:
+```sh
+curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 \
+  && chmod +x minikube
+```
+
+Чтобы файл minikube был доступен для использования, используем следующие комманды:
+```sh
+mkdir -p /usr/local/bin/
+install minikube /usr/local/bin/
+```
+
+Чтобы убедиться в том, что гипервизор и Minikube были установлены корректно, запускаем локальный кластер Kubernetes:
+```sh
+minikube start --vm-driver=docker
+```
+
+
 
