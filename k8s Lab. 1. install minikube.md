@@ -24,20 +24,22 @@ install minikube /usr/local/bin/
 
 Чтобы убедиться в том, что гипервизор и Minikube были установлены корректно, запускаем локальный кластер Kubernetes:
 ```sh
-minikube start --vm-driver=docker
+minikube start --vm-driver=VirtualBox
 ```
 
 Rezultat
 ```sh
-vladimir@vladimir-VirtualBox:~$ minikube start --driver=docker
+vladimir@vladimir-VirtualBox:~$ minikube start --vm-driver=VirtualBox
 😄  minikube v1.32.0 на Ubuntu 22.04
-✨  Используется драйвер docker на основе конфига пользователя
 
-💣  Exiting due to PROVIDER_DOCKER_NEWGRP: "docker version --format <no value>-<no value>:<no value>" exit status 1: permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get "http://%2Fvar%2Frun%2Fdocker.sock/v1.24/version": dial unix /var/run/docker.sock: connect: permission denied
-💡  Предложение: Add your user to the 'docker' group: 'sudo usermod -aG docker $USER && newgrp docker'
-📘  Documentation: https://docs.docker.com/engine/install/linux-postinstall/
+❌  Exiting due to DRV_UNSUPPORTED_OS: The driver 'VirtualBox' is not supported on linux/amd64
+
 ```
 Zapusk
+```sh
+minikube start --driver=docker
+```
+
 ```sh
 vladimir@vladimir-VirtualBox:~$ minikube start --driver=docker
 😄  minikube v1.32.0 на Ubuntu 22.04
