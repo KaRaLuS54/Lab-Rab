@@ -1,7 +1,7 @@
 # Лабораторная работа №1 k8s
 # Install minikub
 
-Для начала требуется утсановить kubectl
+Для начала требуется утсановить kubectl, однако надо, чтобы Ubuntu была с архитектурой amd64, иначе не запустится
 ```sh
 sudo apt-get update && sudo apt-get install -y apt-transport-https
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
