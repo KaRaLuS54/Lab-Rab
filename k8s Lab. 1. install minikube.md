@@ -104,7 +104,8 @@ vladimir@vladimir-VirtualBox:~$ minikube start --vm-driver=Docker
 ```
 Результат никакой, видимо поддержка amd64, тогда будем исправлять через биос ошибку на драйвер VirtualBox. В настройках VirtualBox недоступен данный параметр, для этого надо его запустить в биосе самой машины
 ![Image alt](https://github.com/KaRaLuS54/picturesKaralus/blob/main/nerabotaetVirtual.png)
-
+После того, как мы зашли в настройки биоса машины, можно заметить, что настройки виртуализации нет. Скорее всего это из-за того, что ноутбук старой модели и не поддерживает данную настройку:
+![Image alt](https://github.com/KaRaLuS54/picturesKaralus/blob/main/bios.jpg)
 
 
 
