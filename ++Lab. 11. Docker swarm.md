@@ -54,7 +54,7 @@ if __name__ == '__main__':
 ```
 Разворачивание сервиса с 3 репликами выполняется вот такой коммандой:
 ```sh
-docker service create --replicas 3 --name my-service -p 5000:5000 ваше_имя_образа
+docker service create --replicas 3 --name my-service -p 5000:5000 имя_образа
 ```
 
 Пересборка образа с дополнительной информацией о разработчике в Dockerfile:
@@ -72,7 +72,7 @@ COPY app.py /app/app.py
 EXPOSE 5000
 
 # Дополнительная информация о разработчике
-LABEL maintainer="Ваше Имя <ваш_email>"
+LABEL maintainer="Имя <наш_email>"
 
 # Команда для запуска Flask-приложения
 CMD ["python", "/app/app.py"]
@@ -80,5 +80,5 @@ CMD ["python", "/app/app.py"]
 Обновляется приложене с использованием docker service update следующей коммандой:
 ```sh
 # Пересоздаем сервис с новой версией образа
-docker service update --image ваше_имя_образа:новая_версия my-service
+docker service update --image имя_образа:новая_версия my-service
 ```
