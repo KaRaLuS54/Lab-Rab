@@ -78,6 +78,33 @@ apiserver: Nonexistent
 kubeconfig: Nonexistent
 ```
 Есть вариант попробовать запустить драйвер Docker
+```sh
+vladimir@vladimir-VirtualBox:~$ minikube start --driver=Docker
+😄  minikube v1.32.0 на Ubuntu 22.04
+
+💢  Exiting due to GUEST_DRIVER_MISMATCH: The existing "minikube" cluster was created using the "virtualbox" driver, which is incompatible with requested "Docker" driver.
+💡  Предложение: Delete the existing 'minikube' cluster using: 'minikube delete', or start the existing 'minikube' cluster using: 'minikube start --driver=virtualbox'
+```
+Odnkao nado delete minikube
+```sh
+vladimir@vladimir-VirtualBox:~$ minikube delete
+💀  Removed all traces of the "minikube" cluster.
+```
+dalee probuy stavit driver docker
+```sh
+vladimir@vladimir-VirtualBox:~$ minikube start --driver=Docker
+😄  minikube v1.32.0 на Ubuntu 22.04
+
+❌  Exiting due to DRV_UNSUPPORTED_OS: The driver 'Docker' is not supported on linux/amd64
+
+vladimir@vladimir-VirtualBox:~$ minikube start --vm-driver=Docker
+😄  minikube v1.32.0 на Ubuntu 22.04
+
+❌  Exiting due to DRV_UNSUPPORTED_OS: The driver 'Docker' is not supported on linux/amd64
+```
+Rezult tak sebe, togda repair bios
+
+
 
 
 
