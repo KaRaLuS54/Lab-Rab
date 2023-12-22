@@ -102,7 +102,8 @@ vladimir@vladimir-VirtualBox:~$ minikube start --vm-driver=Docker
 
 ❌  Exiting due to DRV_UNSUPPORTED_OS: The driver 'Docker' is not supported on linux/amd64
 ```
-Результат никакой, видимо поддержка amd64, тогда будем исправлять через биос ошибку на драйвер VirtualBox
+Результат никакой, видимо поддержка amd64, тогда будем исправлять через биос ошибку на драйвер VirtualBox. В настройках VirtualBox недоступен данный параметр, для этого надо его запустить в биосе самой машины
+![Image alt](https://github.com/KaRaLuS54/picturesKaralus/blob/main/nerabotaetVirtual.png)
 
 
 
