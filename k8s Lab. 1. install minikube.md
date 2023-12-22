@@ -22,12 +22,12 @@ mkdir -p /usr/local/bin/
 install minikube /usr/local/bin/
 ```
 
-Чтобы убедиться в том, что гипервизор и Minikube были установлены корректно, запускаем локальный кластер Kubernetes:
+Чтобы убедиться в том, что гипервизор и Minikube были установлены корректно, запускаем локальный кластер Kubernetes(перед запуском скорее всего придется установить драйвер VirtualBox, так как до его установки у меня ничего не запускалось):
 ```sh
 minikube start --vm-driver=VirtualBox
 ```
 
-Rezultat
+Ниже видно, что vm-driver не запустился, скорее всего из-за того, что Ubuntu установлена на VirtualBox, хотя скорее всего не поддерживает архитектуру amd64
 ```sh
 vladimir@vladimir-VirtualBox:~$ minikube start --vm-driver=VirtualBox
 😄  minikube v1.32.0 на Ubuntu 22.04
@@ -35,11 +35,11 @@ vladimir@vladimir-VirtualBox:~$ minikube start --vm-driver=VirtualBox
 ❌  Exiting due to DRV_UNSUPPORTED_OS: The driver 'VirtualBox' is not supported on linux/amd64
 
 ```
-Zapusk
+Однако есть еще одна комманда запуска Миникуба
 ```sh
 minikube start --driver=VirtualBox
 ```
-
+Тут уже комманда прошла, однако в конце вышла ошибка связанная с биосом, а именно VT-X/AMD-v, видимо она выключена в VirtualBox
 ```sh
 vladimir@vladimir-VirtualBox:~$ minikube start --driver=virtualbox
 😄  minikube v1.32.0 на Ubuntu 22.04
@@ -66,7 +66,7 @@ vladimir@vladimir-VirtualBox:~$ minikube start --driver=virtualbox
     ▪ https://github.com/kubernetes/minikube/issues/4730
 ```
 
-status
+Статус показывает, что миникуб не был запущен
 ```sh
 vladimir@vladimir-VirtualBox:~$ minikube status
 E1221 11:06:27.128184   15661 status.go:263] The "minikube" host does not exist!
@@ -77,7 +77,7 @@ kubelet: Nonexistent
 apiserver: Nonexistent
 kubeconfig: Nonexistent
 ```
-
+Есть вариант попробовать запустить драйвер Docker
 
 
 
