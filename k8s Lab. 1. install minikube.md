@@ -26,6 +26,11 @@ install minikube /usr/local/bin/
 ```sh
 minikube start --vm-driver=VirtualBox
 ```
+Вот что будет, если попробовать запустить на другой архитектуре самой Ubuntu
+```sh
+root@pcmacvirtualka:~# minikube start --vm-driver=VirtualBox
+-bash: /usr/local/bin/minikube: не удаётся запустить бинарный файл: Ошибка формата выполняемого файла
+```
 
 Ниже видно, что vm-driver не запустился, скорее всего из-за того, что Ubuntu установлена на VirtualBox, хотя скорее всего не поддерживает архитектуру amd64
 ```sh
