@@ -85,12 +85,12 @@ vladimir@vladimir-VirtualBox:~$ minikube start --driver=Docker
 💢  Exiting due to GUEST_DRIVER_MISMATCH: The existing "minikube" cluster was created using the "virtualbox" driver, which is incompatible with requested "Docker" driver.
 💡  Предложение: Delete the existing 'minikube' cluster using: 'minikube delete', or start the existing 'minikube' cluster using: 'minikube start --driver=virtualbox'
 ```
-Odnkao nado delete minikube
+Однако, чтобы запустить другой миникуб, надо удалить старый, который был создан, но не запушен
 ```sh
 vladimir@vladimir-VirtualBox:~$ minikube delete
 💀  Removed all traces of the "minikube" cluster.
 ```
-dalee probuy stavit driver docker
+После удаления пробуем ставить миникуб Docker
 ```sh
 vladimir@vladimir-VirtualBox:~$ minikube start --driver=Docker
 😄  minikube v1.32.0 на Ubuntu 22.04
@@ -102,7 +102,7 @@ vladimir@vladimir-VirtualBox:~$ minikube start --vm-driver=Docker
 
 ❌  Exiting due to DRV_UNSUPPORTED_OS: The driver 'Docker' is not supported on linux/amd64
 ```
-Rezult tak sebe, togda repair bios
+Результат никакой, видимо поддержка amd64, тогда будем исправлять через биос ошибку на драйвер VirtualBox
 
 
 
